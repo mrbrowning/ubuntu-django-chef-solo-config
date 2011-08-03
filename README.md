@@ -16,7 +16,7 @@ It takes a fresh Ubuntu 10.10 install to a fully configured django app server :
 * memcached
 * PIL
 
-Note that Django is not installed, because that get's installed into each project's virtual environment along with all it's other requirements
+Note that Django is not installed, because that gets installed into each project's virtual environment along with all it's other requirements
 
 ## Usage
 
