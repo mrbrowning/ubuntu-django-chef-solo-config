@@ -1,0 +1,11 @@
+server {
+  listen   80;
+  server_name  _;
+
+  access_log  <%= node[:nginx][:log_dir] %>/default.access.log;
+
+  location / {
+    root   /home/insertyourusernamehere/sites/default;
+    index  index.html;
+  }
+}

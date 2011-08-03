@@ -1,0 +1,22 @@
+{
+  "run_list": [ 
+    "main::default", 
+    "nginx::default", 
+    "python::default",
+    "postgres::default", 
+    "iptables::default",
+    "memcached::default",
+    "supervisord::default",
+    "bashrc::default",
+    "xapian::default"
+  ],
+
+
+  "users": {
+      "insertyourusernamehere": {
+        "id": 1001,
+        "full_name": "insertyourfullusersname",
+        "password" : "inserthash"
+      }
+    }
+}
