@@ -1,8 +1,8 @@
 from fabric.api import *
 
 env.user = 'root'
-env.hosts = ['zbase.jcurle.designcc.co.uk']
-env.cookbooks = '/Users/jcurle/Documents/CC/designcc/devops/zerigo-appserver/chef/'
+env.hosts = ['yourhosthere']
+env.cookbooks = '/path/to/ubuntu-django-chef-solo-config/chef/'
 env.chef_executable = '/var/lib/gems/1.8/bin/chef-solo -c /var/chef/config/solo.rb -j /var/chef/config/node.json'
 
 
