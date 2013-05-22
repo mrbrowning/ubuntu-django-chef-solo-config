@@ -1,7 +1,18 @@
-bash "install-gunicorn" do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOF
-  pip install gunicorn
-  pip install boto
-  EOF
+include_recipe "python::virtualenv"
+
+venv_dir = node['python']['venv_dir']
+
+python_virtualenv venv_dir do
+	interpreter "python"
+	action :create
+end
+
+python_pip "flask" do
+	virtualenv venv_dir
+	action :install
+end
+
+python_pip "flask-mongoengine" do
+	virtualenv venv_dir
+	action :install
 end
