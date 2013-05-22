@@ -4,6 +4,8 @@ env.user = 'root'
 env.hosts = ['192.168.82.131']
 env.local = '192.168.82.1'
 env.app_name = 'app_name'
+env.local_projects_dir = '/Users/%s/projects' % env.user
+env.remote_app_dir = '/var/www/%s' % env.app_name
 env.cookbooks = '/Users/%s/projects/deploy/chef/'
 env.chef_executable = '/usr/local/bin/chef-solo -c /var/chef/config/solo.rb -j /var/chef/config/node.json'
 
@@ -24,11 +26,18 @@ def install_environment():
 
 
 def push_project():
-    sudo('git clone ssh://%s@%s/Users/%s/%s/%s /var/www/%s/%s' % (env.user, env.local, env.user, env.app_name, env.app_name, env.app_name, env.app_name), pty=True)
-    sudo('chown -R %s:www-data /var/www/%s' % (env.user, env.app_name))
-    sudo('mkdir /var/www/%s/%s/log' % (env.app_name, env.app_name))
-    sudo('chown %s:www-data /var/www/%s/%s/log' % (env.user, env.app_name, env.app_name))
-    sudo('chmod g+w /var/www/%s/%s/log' % (env.app_name, env.app_name))
+    sudo(
+        'git clone ssh://%s@%s%s/%s %s/%s' % (
+            env.user, env.local, env.local_projects_dir, env.app_name, env.remote_app_dir, env.app_name
+        ),
+        pty=True
+    )
+    sudo('chown -R %s:www-data %s' % (env.user, env.remote_app_dir))
+    # uWSGI chokes if the LOGTO dir doesn't exist
+    sudo('mkdir %s/%s/log' % (env.remote_app_dir, env.app_name))
+    sudo('chown %s:www-data %s/%s/log' % (env.user, env.remote_app_dir, env.app_name))
+    sudo('chmod g+w %s/%s/log' % (env.remote_app_dir, env.app_name))
+
     sudo('service uwsgi restart')
     sudo('service nginx restart')
 
