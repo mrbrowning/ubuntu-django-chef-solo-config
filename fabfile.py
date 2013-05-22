@@ -1,6 +1,7 @@
 from fabric.api import *
 
-env.user = 'root'
+env.chef_user = 'root'
+env.user = 'insertyourusernamehere'
 env.hosts = ['192.168.82.131']
 env.local = '192.168.82.1'
 env.app_name = 'app_name'
@@ -48,4 +49,4 @@ def update_environment():
     
 
 def _sync_config():
-    local('rsync --exclude "*.py" --exclude "*.pyc" -av %s %s@%s:/var/chef' % (env.cookbooks, env.user, env.hosts[0]))
+    local('rsync --exclude "*.py" --exclude "*.pyc" -av %s %s@%s:/var/chef' % (env.cookbooks, env.chef_user, env.hosts[0]))
