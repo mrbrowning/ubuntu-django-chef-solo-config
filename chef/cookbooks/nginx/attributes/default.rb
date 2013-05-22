@@ -1,4 +1,4 @@
-default[:nginx][:version]      = "0.8.54"
+default[:nginx][:version]      = "1.4.1"
 
 case platform
 when "debian","ubuntu"
@@ -33,3 +33,5 @@ default[:nginx][:keepalive_timeout]  = 65
 default[:nginx][:worker_processes]   = cpu[:total]
 default[:nginx][:worker_connections] = 2048
 default[:nginx][:server_names_hash_bucket_size] = 64
+
+default[:nginx][:app_name] = "app_name"
