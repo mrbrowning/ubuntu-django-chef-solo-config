@@ -1,8 +1,6 @@
 IPTABLES=/sbin/iptables
 DESC=IPTABLES
 
-OFFICE=XXX.XXX.XXX.XXX
-
 
 case "$1" in
   start)
@@ -23,19 +21,13 @@ case "$1" in
     # SSH
     $IPTABLES -A INPUT -p udp -s 127.0.0.1 --dport 1:35000 -j ACCEPT
     $IPTABLES -A INPUT -p tcp -s 127.0.0.1 --dport 1:35000 -j ACCEPT
-  # Allow from jamie home
-    $IPTABLES -A INPUT -p tcp -s $JAMIE  --dport 1:35000 -j ACCEPT
-    $IPTABLES -A INPUT -p udp -s $JAMIE  --dport 1:35000 -j ACCEPT
-  # Allow from office
-    $IPTABLES -A INPUT -p tcp -s $OFFICE  --dport 1:35000 -j ACCEPT
-    $IPTABLES -A INPUT -p udp -s $OFFICE  --dport 1:35000 -j ACCEPT
 
 
 
 # Reject everything from ssh and allow everything on 80
 #
-  $IPTABLES -A INPUT -p tcp -s 0/0 --dport 22 -j DROP
-  $IPTABLES -A INPUT -p tcp -s 0/E  --dport 80 -j ACCEPT
+#  $IPTABLES -A INPUT -p tcp -s 0/0 --dport 22 -j DROP
+#  $IPTABLES -A INPUT -p tcp -s 0/E  --dport 80 -j ACCEPT
 
 
 
