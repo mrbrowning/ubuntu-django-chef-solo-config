@@ -3,20 +3,16 @@
     "main::default", 
     "nginx::default", 
     "python::default",
-    "postgres::default", 
     "iptables::default",
-    "memcached::default",
-    "supervisord::default",
     "bashrc::default",
-    "xapian::default"
+    "mongodb::default"
   ],
 
-
   "users": {
-      "insertyourusernamehere": {
-        "id": 1001,
-        "full_name": "insertyourfullusersname",
-        "password" : "inserthash"
-      }
+    "insertyourusernamehere": {
+      "id": 1001,
+      "full_name": "insertyourfullusersname",
+      "password" : "inserthash"
     }
+  }
 }
