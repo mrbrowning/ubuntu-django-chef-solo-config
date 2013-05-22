@@ -1,18 +1,18 @@
-# update the OFFICE variable in the template with your office or home ip
+user_name = "insertyourusernamehere"
 
 template "bashrc" do
   source "bashrc.erb"
-  path "/home/insertyourusernamehere/.bashrc"
+  path "/home/#{user_name}/.bashrc"
   mode 0644
-  owner "designcc"
-  group "designcc"
+  owner "#{user_name}"
+  group "#{user_name}"
 end
 
 
 template "bashrc" do
   source "bash_profile.erb"
-  path "/home/insertyourusernamehere/.bash_profile"
+  path "/home/#{user_name}/.bash_profile"
   mode 0644
-  owner "designcc"
-  group "designcc"
+  owner "#{user_name}"
+  group "#{user_name}"
 end
