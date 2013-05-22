@@ -40,12 +40,6 @@ node[:users].each_pair do |username, info|
         group username
         mode 0755
     end
-    
-    directory "/home/#{username}/conf/supervisord/" do
-        owner username
-        group username
-        mode 0755
-    end
 
     file "/home/#{username}/.ssh/authorized_keys" do
         owner username
@@ -54,17 +48,10 @@ node[:users].each_pair do |username, info|
         content info[:key]
     end
     
-    execute "generate ssh skys for #{username}." do
+    execute "generate ssh skeys for #{username}." do
         user username
         creates "/home/#{username}/.ssh/id_rsa.pub"
         command "ssh-keygen -t rsa -q -f /home/#{username}/.ssh/id_rsa -P \"\""
     end
     
-    execute "add designcc to sudo group" do
-      user "root"
-      command "usermod -a -G sudo designcc"
-    end
-    
 end
-
-
