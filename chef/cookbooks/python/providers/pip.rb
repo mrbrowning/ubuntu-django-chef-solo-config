@@ -100,7 +100,7 @@ def current_installed_version
   @current_installed_version ||= begin
     delimeter = /==/
     
-    version_check_cmd = "pip freeze#{expand_virtualenv(can_haz_virtualenv(@new_resource))} | grep -i #{@new_resource.package_name}=="
+    version_check_cmd = "#{expand_virtualenv(can_haz_virtualenv(@new_resource))}pip freeze | grep -i #{@new_resource.package_name}=="
     # incase you upgrade pip with pip!
     if @new_resource.package_name.eql?('pip')
       delimeter = /\s/
@@ -123,20 +123,20 @@ end
 
 def install_package(name,version)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{name}#{v}")
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}pip install#{expand_options(@new_resource.options)} #{name}#{v}")
 end
 
 def upgrade_package(name, version)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install --upgrade#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}#{v}")
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}pip install --upgrade#{expand_options(@new_resource.options)} #{@new_resource.name}#{v}")
 end
 
 def remove_package(name, version)
-  shell_out!("pip uninstall -y#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}")
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}pip uninstall -y#{expand_options(@new_resource.options)} #{@new_resource.name}")
 end
 
 def expand_virtualenv(virtualenv)
-  virtualenv && " --environment=#{virtualenv}"
+  virtualenv && "#{virtualenv}/bin/"
 end
 
 # TODO remove when provider is moved into Chef core
