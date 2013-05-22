@@ -1,11 +1,10 @@
 server {
   listen   80;
-  server_name  _;
 
   access_log  <%= node[:nginx][:log_dir] %>/default.access.log;
 
   location / {
-    root   /home/insertyourusernamehere/sites/default;
-    index  index.html;
+    include uwsgi_params;
+    uwsgi_pass unix:///tmp/<%= node[:nginx][:app_name] %>.sock;
   }
 }
