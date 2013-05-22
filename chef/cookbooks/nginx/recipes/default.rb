@@ -20,21 +20,23 @@
 
 package "nginx"
 
+user_name = "user_name"
+
 directory node[:nginx][:log_dir] do
   mode 0755
   owner node[:nginx][:user]
   action :create
 end
 
-directory "/home/insertyourusernamehere/sites" do 
+directory "/home/#{user_name}/sites" do 
   mode 0755
-  owner "designcc"
+  owner "#{user_name}"
   action :create
 end
 
-directory "/home/insertyourusernamehere/sites/default" do 
+directory "/home/#{user_name}/sites/default" do 
   mode 0755
-  owner "designcc"
+  owner "#{user_name}"
   action :create
 end
 
@@ -46,15 +48,6 @@ end
     group "root"
   end
 end
-
-template "index.html" do
-  path "/home/insertyourusernamehere/sites/default/index.html"
-  source "index.html.erb"
-  owner "designcc"
-  group "designcc"
-  mode 0644
-end
-
 
 template "nginx.conf" do
   path "#{node[:nginx][:dir]}/nginx.conf"
