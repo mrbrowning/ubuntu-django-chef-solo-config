@@ -1,0 +1,14 @@
+[uwsgi]
+# variables
+project = %n
+base = /var/www/%(project)
+project_dir = %(base)/%(project)
+# config
+master = true
+processes = 4
+socket = /tmp/%(project).sock
+venv = %(base)/venv
+pythonpath = %(project_dir)
+file = %(project_dir)/app.wsgi
+logto = %(project_dir)/log/uwsgi.log
+manage-script-name = true
