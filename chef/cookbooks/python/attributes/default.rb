@@ -24,7 +24,7 @@ default['python']['url'] = 'http://www.python.org/ftp/python'
 default['python']['version'] = '2.7.3'
 default['python']['checksum'] = 'c57477edd6d18bd9eeca2f21add73919'
 default['python']['prefix_dir'] = '/usr/bin'
-default['python']['app_name'] = 'app_name'
+default['python']['app_name'] = 'insertyourappnamehere'
 default['python']['venv_dir'] = "/var/www/#{default['python']['app_name']}/venv"
 
 default['python']['configure_options'] = %W{--prefix=#{python['prefix_dir']}}

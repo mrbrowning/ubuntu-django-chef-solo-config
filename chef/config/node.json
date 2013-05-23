@@ -11,8 +11,8 @@
   "users": {
     "insertyourusernamehere": {
       "id": 1001,
-      "full_name": "insertyourfullusersname",
-      "password" : "inserthash"
+      "full_name": "insertyourfullnamehere",
+      "password" : "insertyourpasswordhashhere"
     }
   }
 }
