@@ -20,7 +20,7 @@
 
 package "nginx"
 
-user_name = "user_name"
+user_name = "insertyourusernamehere"
 
 directory node[:nginx][:log_dir] do
   mode 0755
