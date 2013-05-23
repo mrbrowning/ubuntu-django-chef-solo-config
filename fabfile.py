@@ -1,13 +1,13 @@
 from fabric.api import *
 
-env.chef_user = 'root'
-env.user = 'insertyourusernamehere'
-env.hosts = ['192.168.82.131']
+env.user = 'root'
+env.app_user = 'insertyourusernamehere'
+env.hosts = ['insertyourremotehosthere']
 env.local = '192.168.82.1'
-env.app_name = 'app_name'
-env.local_projects_dir = '/Users/%s/projects' % env.user
+env.app_name = 'insertyourappnamehere'
+env.local_projects_dir = '/Users/%s/projects' % env.app_user
 env.remote_app_dir = '/var/www/%s' % env.app_name
-env.cookbooks = '/Users/%s/projects/deploy/chef/'
+env.cookbooks = '/Users/%s/projects/deploy/chef/' % env.app_user
 env.chef_executable = '/usr/local/bin/chef-solo -c /var/chef/config/solo.rb -j /var/chef/config/node.json'
 
 
@@ -29,14 +29,14 @@ def install_environment():
 def push_project():
     sudo(
         'git clone ssh://%s@%s%s/%s %s/%s' % (
-            env.user, env.local, env.local_projects_dir, env.app_name, env.remote_app_dir, env.app_name
+            env.app_user, env.local, env.local_projects_dir, env.app_name, env.remote_app_dir, env.app_name
         ),
         pty=True
     )
-    sudo('chown -R %s:www-data %s' % (env.user, env.remote_app_dir))
+    sudo('chown -R %s:www-data %s' % (env.app_user, env.remote_app_dir))
     # uWSGI chokes if the LOGTO dir doesn't exist
     sudo('mkdir %s/%s/log' % (env.remote_app_dir, env.app_name))
-    sudo('chown %s:www-data %s/%s/log' % (env.user, env.remote_app_dir, env.app_name))
+    sudo('chown %s:www-data %s/%s/log' % (env.app_user, env.remote_app_dir, env.app_name))
     sudo('chmod g+w %s/%s/log' % (env.remote_app_dir, env.app_name))
 
     sudo('service uwsgi restart')
@@ -49,4 +49,4 @@ def update_environment():
     
 
 def _sync_config():
-    local('rsync --exclude "*.py" --exclude "*.pyc" -av %s %s@%s:/var/chef' % (env.cookbooks, env.chef_user, env.hosts[0]))
+    local('rsync --exclude "*.py" --exclude "*.pyc" -av %s %s@%s:/var/chef' % (env.cookbooks, env.user, env.hosts[0]))
